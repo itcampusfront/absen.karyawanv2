@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+class Member
 {
     /**
      * Handle an incoming request.
@@ -21,15 +20,12 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                if(Auth::user()->role == role('super-admin') || Auth::user()->role == role('admin'))
-                    return redirect()->route('admin.dashboard');
-                elseif(Auth::user()->role == role('member'))
-                    return redirect()->route('admin.dashboard');
+        foreach($guards as $guard) {
+            if(Auth::guard($guard)->check() && Auth::user()->role == role('member')) {
+                return $next($request);
             }
         }
 
-        return $next($request);
+        return redirect()->route('auth.login');
     }
 }

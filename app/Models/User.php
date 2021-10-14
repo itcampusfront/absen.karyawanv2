@@ -13,19 +13,12 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'id_user';
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'nama_user', 'username', 'email', 'password', 'tanggal_lahir', 'jenis_kelamin', 'nomor_hp', 'foto', 'role', 'status', 'email_verified', 'last_visit', 'register_at',
+        'name', 'username', 'email', 'password', 'birthdate', 'gender', 'phone_number', 'role', 'status', 'last_visit',
     ];
 
     /**
@@ -45,11 +38,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    
     /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
+     * Get the group that owns the user.
      */
-    public $timestamps = false;
+    public function group()
+    {
+        return $this->belongsTo(Group::class, 'group_id');
+    }
+    
+    /**
+     * Get the office that owns the user.
+     */
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'office_id');
+    }
+    
+    /**
+     * Get the position that owns the user.
+     */
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id');
+    }
 }

@@ -1,89 +1,59 @@
-@extends('faturcms::auth.layout')
-
-@section('title', 'Login')
-
-@section('content')
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-light fixed-top bg-white shadow-sm justify-content-center">
-      <a class="navbar-brand" href="{{ route('site.home') }}">
-        <img src="{{ asset('assets/images/logo/'.setting('site.logo')) }}" class="img-fluid" width="200" alt="logo">
-      </a>
-    </nav>
-    <!-- /Navbar -->
-
-    <div class="main-wrapper mt-5 mt-lg-0">
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 d-none d-lg-block">
-                        <div class="d-flex align-items-center h-100">
-                            <img class="img-fluid" src="{{asset('assets/images/ilustrasi/undraw_Login_re_4vu2.svg')}}">
-                        </div>
+<!DOCTYPE html>
+<html>
+    <head>
+        @include('template/_head')
+        <title>Login | {{ setting('name') }}</title>
+        <style>
+            .btn .fa {margin-right: 0;}
+        </style>
+    </head>
+    <body>
+        <section class="material-half-bg">
+            <div class="cover"></div>
+        </section>
+        <section class="login-content">
+            <div class="logo">
+                <img src="{{ asset('assets/images/logo/'.setting('logo')) }}" height="150">
+            </div>
+            <div class="login-box">
+                <form class="login-form" action="{{ route('auth.post-login') }}" method="post">
+                    {{ csrf_field() }}
+                    <h3 class="login-head">Selamat Datang!</h3>
+                    <div class="form-group">
+                        <label class="control-label">EMAIL / USERNAME</label>
+                        <input class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" name="username" type="text" placeholder="Masukkan Email / Username" value="{{ old('username') }}" autofocus>
+                        @if($errors->has('username'))
+                        <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('username')) }}</div>
+                        @endif
                     </div>
-                    <div class="col-lg-6">
-                        <div class="wrapper">
-                            <div class="card border-0 shadow-sm rounded-2">
-                                <div class="card-header pt-4 bg-transparent text-left">
-                                    <h5 class="h2">Selamat Datang Kembali :)</h5>
-                                    <p class="m-0">Untuk tetap terhubung dengan kami, silakan login dengan informasi pribadi Anda melalui email dan kata sandi 🔔</p>
-                                </div>
-                                <div class="card-body">
-                                    <form class="login-form" action="{{ route('auth.postlogin') }}" method="post">
-                                        {{ csrf_field() }}
-                                        @if(isset($message))
-                                        <div class="alert alert-danger">
-                                            {{ $message }}
-                                        </div>
-                                        @endif
-                                        <div class="form-group ">
-                                            <label class="control-label">Username / Email</label>
-                                            <div class="input-group input-group-lg">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text {{ $errors->has('username') ? 'border-danger' : '' }}" id="basic-addon1"><i class="fa fa-user"></i></span>
-                                                </div>
-                                                <input class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" name="username" type="text" placeholder="Username atau Email" autofocus>
-                                            </div>
-                                            @if($errors->has('username'))
-                                            <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('username')) }}</div>
-                                            @endif
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label">Password</label>
-                                            <div class="input-group input-group-lg">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text {{ $errors->has('password') ? 'border-danger' : '' }}" id="basic-addon1"><i class="fa fa-lock"></i></span>
-                                                </div>
-                                                <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'border-danger' : '' }}" placeholder="Password">
-                                                <div class="input-group-append">
-                                                    <a href="#" class="input-group-text text-dark btn btn-toggle-password {{ $errors->has('password') ? 'border-danger' : '' }}"><i class="fa fa-eye"></i></a>
-                                                </div>
-                                            </div>
-                                            @if($errors->has('password'))
-                                            <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('password')) }}</div>
-                                            @endif
-                                        </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                          <div class="form-group form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                            <label class="form-check-label" for="exampleCheck1">Ingat Saya</label>
-                                          </div>
-                                          <div class="form-group">
-                                            <a href="{{ route('auth.forgotpassword') }}" class="text-body">Lupa Password?</a>
-                                          </div>
-                                        </div>
-                                        <div class="form-group btn-container">
-                                            <button type="submit" class="btn btn-theme-1 btn-lg rounded px-4 shadow-sm btn-block">Masuk</button>
-                                            <a href="{{ route('auth.register', ['ref' => $_GET['ref']]) }}" class="btn btn-light btn-lg rounded px-4 shadow-sm btn-block">Daftar</a>
-                                        </div>
-                                    </form>
-                                </div>
+                    <div class="form-group">
+                        <label class="control-label">PASSWORD</label>
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="Masukkan Password">
+                            <div class="input-group-append">
+                              <a href="#" class="btn btn-toggle-password input-group-text {{ $errors->has('password') ? 'border-danger' : '' }}"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
+                        @if($errors->has('password'))
+                        <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('password')) }}</div>
+                        @endif
                     </div>
-                </div>
+                    <!-- <div class="form-group">
+                        <div class="utility">
+                            <div class="animated-checkbox">
+                                <label>
+                                    <input type="checkbox"><span class="label-text">Stay Signed in</span>
+                                </label>
+                            </div>
+                            <p class="semibold-text mb-2"><a href="#">Forgot Password ?</a></p>
+                        </div>
+                    </div> -->
+                    <div class="form-group btn-container">
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw mr-2"></i> Masuk</button>
+                    </div>
+                </form>
             </div>
-        </div>
-    </div>
-
-@endsection
+        </section>
+    </body>
+    @include('template/_js')
+</html>

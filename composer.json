@@ -32,6 +32,7 @@
             "Tests\\": "tests/"
         },
         "files": [
+            "app/Http/Helpers/Date.php",
             "app/Http/Helpers/Helpers.php"
         ]
     },

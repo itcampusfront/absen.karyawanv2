@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Office;
+use App\Models\WorkHour;
 use App\Models\Group;
 
-class OfficeController extends Controller
+class WorkHourController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,23 +19,15 @@ class OfficeController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()) {
-            // Get offices by the group
-            $offices = Office::where('group_id','=',$request->query('group'))->get();
-
-            // Return
-            return response()->json($offices);
-        }
-
-        // Get offices
+        // Get work hours
         if(Auth::user()->role == role('super-admin'))
-            $offices = Office::has('group')->get();
+            $work_hours = WorkHour::all();
         elseif(Auth::user()->role == role('admin'))
-            $offices = Office::has('group')->where('group_id','=',Auth::user()->group_id)->get();
+            $work_hours = WorkHour::where('group_id','=',Auth::user()->group_id)->get();
 
         // View
-        return view('admin/office/index', [
-            'offices' => $offices
+        return view('admin/work-hour/index', [
+            'work_hours' => $work_hours
         ]);
     }
 
@@ -49,7 +42,7 @@ class OfficeController extends Controller
         $groups = Group::all();
 
         // View
-        return view('admin/office/create', [
+        return view('admin/work-hour/create', [
             'groups' => $groups
         ]);
     }
@@ -66,6 +59,9 @@ class OfficeController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'group_id' => Auth::user()->role == role('super-admin') ? 'required' : '',
+            'category' => 'required',
+            'start_at' => 'required',
+            'end_at' => 'required',
         ]);
         
         // Check errors
@@ -74,32 +70,18 @@ class OfficeController extends Controller
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
         else{
-            // Save the office
-            $office = new Office;
-            $office->group_id = Auth::user()->role == role('super-admin') ? $request->group_id : Auth::user()->group_id;
-            $office->name = $request->name;
-            $office->save();
+            // Save the work_hour
+            $work_hour = new WorkHour;
+            $work_hour->group_id = Auth::user()->role == role('super-admin') ? $request->group_id : Auth::user()->group_id;
+            $work_hour->name = $request->name;
+            $work_hour->category = $request->category;
+            $work_hour->start_at = $request->start_at.':00';
+            $work_hour->end_at = $request->end_at.':00';
+            $work_hour->save();
 
             // Redirect
-            return redirect()->route('admin.office.index')->with(['message' => 'Berhasil menambah data.']);
+            return redirect()->route('admin.work-hour.index')->with(['message' => 'Berhasil menambah data.']);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function detail($id)
-    {
-        // Get the office
-        $office = Office::findOrFail($id);
-
-        // View
-        return view('admin/office/detail', [
-            'office' => $office
-        ]);
     }
 
     /**
@@ -110,15 +92,15 @@ class OfficeController extends Controller
      */
     public function edit($id)
     {
-        // Get the office
-        $office = Office::findOrFail($id);
+        // Get the work hour
+        $work_hour = WorkHour::findOrFail($id);
 
         // Get groups
         $groups = Group::all();
 
         // View
-        return view('admin/office/edit', [
-            'office' => $office,
+        return view('admin/work-hour/edit', [
+            'work_hour' => $work_hour,
             'groups' => $groups,
         ]);
     }
@@ -135,6 +117,9 @@ class OfficeController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'group_id' => Auth::user()->role == role('super-admin') ? 'required' : '',
+            'category' => 'required',
+            'start_at' => 'required',
+            'end_at' => 'required',
         ]);
         
         // Check errors
@@ -143,14 +128,17 @@ class OfficeController extends Controller
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
         else{
-            // Update the office
-            $office = Office::find($request->id);
-            $office->group_id = Auth::user()->role == role('super-admin') ? $request->group_id : Auth::user()->group_id;
-            $office->name = $request->name;
-            $office->save();
+            // Update the work hour
+            $work_hour = WorkHour::find($request->id);
+            $work_hour->group_id = Auth::user()->role == role('super-admin') ? $request->group_id : Auth::user()->group_id;
+            $work_hour->name = $request->name;
+            $work_hour->category = $request->category;
+            $work_hour->start_at = $request->start_at.':00';
+            $work_hour->end_at = $request->end_at.':00';
+            $work_hour->save();
 
             // Redirect
-            return redirect()->route('admin.office.index')->with(['message' => 'Berhasil mengupdate data.']);
+            return redirect()->route('admin.work-hour.index')->with(['message' => 'Berhasil mengupdate data.']);
         }
     }
 
@@ -162,13 +150,13 @@ class OfficeController extends Controller
      */
     public function delete(Request $request)
     {
-        // Get the office
-        $office = Office::findOrFail($request->id);
+        // Get the work hour
+        $work_hour = WorkHour::findOrFail($request->id);
 
-        // Delete the office
-        $office->delete();
+        // Delete the work hour
+        $work_hour->delete();
 
         // Redirect
-        return redirect()->route('admin.office.index')->with(['message' => 'Berhasil menghapus data.']);
+        return redirect()->route('admin.work-hour.index')->with(['message' => 'Berhasil menghapus data.']);
     }
 }

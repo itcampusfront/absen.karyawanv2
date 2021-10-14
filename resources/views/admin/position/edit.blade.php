@@ -7,7 +7,7 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-home"></i> Edit Jabatan</h1>
+            <h1><i class="fa fa-refresh"></i> Edit Jabatan</h1>
             <p>Menu untuk mengedit data jabatan</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">

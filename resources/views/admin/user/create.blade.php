@@ -102,7 +102,7 @@
                                     @endif
                                 @else
                                     <option value="" selected>--Pilih--</option>
-                                    @foreach(\App\Models\Group::find(old('group_id'))->positions as $position)
+                                    @foreach(\App\Models\Group::find(Auth::user()->group_id)->positions as $position)
                                     <option value="{{ $position->id }}" {{ old('position_id') == $position->id ? 'selected' : '' }}>{{ $position->name }}</option>
                                     @endforeach
                                 @endif

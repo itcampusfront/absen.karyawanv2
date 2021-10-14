@@ -23,7 +23,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
         // Get users
-        $users = User::orderBy('role','asc')->get();
+        if(Auth::user()->role == role('super-admin'))
+            $users = User::orderBy('role','asc')->get();
+        elseif(Auth::user()->role == role('admin'))
+            $users = User::where('group_id','=',Auth::user()->group_id)->orderBy('role','asc')->get();
 
         // View
         return view('admin/user/index', [

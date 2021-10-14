@@ -21,6 +21,10 @@ Route::group(['middleware' => ['admin']], function(){
 	// Dashboard
 	Route::get('/admin', 'DashboardController@index')->name('admin.dashboard');
 
+    // Attendance
+	Route::get('/admin/attendance', 'AttendanceController@index')->name('admin.attendance.index');
+	Route::post('/admin/attendance/delete', 'AttendanceController@delete')->name('admin.attendance.delete');
+
 	// User
 	Route::get('/admin/user', 'UserController@index')->name('admin.user.index');
 	Route::get('/admin/user/create', 'UserController@create')->name('admin.user.create');
@@ -56,6 +60,14 @@ Route::group(['middleware' => ['admin']], function(){
 	Route::get('/admin/position/edit/{id}', 'PositionController@edit')->name('admin.position.edit');
 	Route::post('/admin/position/update', 'PositionController@update')->name('admin.position.update');
 	Route::post('/admin/position/delete', 'PositionController@delete')->name('admin.position.delete');
+
+	// Work Hour
+	Route::get('/admin/work-hour', 'WorkHourController@index')->name('admin.work-hour.index');
+	Route::get('/admin/work-hour/create', 'WorkHourController@create')->name('admin.work-hour.create');
+	Route::post('/admin/work-hour/store', 'WorkHourController@store')->name('admin.work-hour.store');
+	Route::get('/admin/work-hour/edit/{id}', 'WorkHourController@edit')->name('admin.work-hour.edit');
+	Route::post('/admin/work-hour/update', 'WorkHourController@update')->name('admin.work-hour.update');
+	Route::post('/admin/work-hour/delete', 'WorkHourController@delete')->name('admin.work-hour.delete');
 });
 
 // Guest

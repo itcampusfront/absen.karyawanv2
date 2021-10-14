@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Setting extends Model
+class WorkHour extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Setting extends Model
      *
      * @var string
      */
-    protected $table = 'settings';
+    protected $table = 'work_hours';
 
     /**
      * Fill the model with an array of attributes.
@@ -24,12 +24,13 @@ class Setting extends Model
      *
      * @throws \Illuminate\Database\Eloquent\MassAssignmentException
      */
-    protected $fillable = ['name', 'category', 'rules', 'code', 'value'];
-
+    protected $fillable = ['name', 'category', 'start_at', 'end_at'];
+    
     /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
+     * Get the group that owns the office.
      */
-    public $timestamps = false;
+    public function group()
+    {
+        return $this->belongsTo(Group::class, 'group_id');
+    }
 }

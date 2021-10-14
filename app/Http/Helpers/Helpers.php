@@ -28,3 +28,15 @@ if(!function_exists('setting')) {
         return $setting ? $setting->value : '';
     }
 }
+
+// Time to string
+if(!function_exists('time_to_string')) {
+    function time_to_string($time) {
+		if($time < 60)
+			return $time." detik";
+		elseif($time >= 60 && $time < 3600)
+			return floor($time / 60)." menit ".fmod($time, 60)." detik";
+		else
+			return floor($time / 3600)." jam ".(floor($time / 60) - (floor($time / 3600) * 60))." menit ".fmod($time, 60)." detik";
+    }
+}

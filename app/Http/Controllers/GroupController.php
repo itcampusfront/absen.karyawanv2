@@ -27,7 +27,10 @@ class GroupController extends Controller
         }
 
         // Get groups
-        $groups = Group::all();
+        if(Auth::user()->role == role('super-admin'))
+            $groups = Group::all();
+        elseif(Auth::user()->role == role('admin'))
+            $groups = Group::where('id','=',Auth::user()->group_id)->get();
 
         // View
         return view('admin/group/index', [

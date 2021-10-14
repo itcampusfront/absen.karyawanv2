@@ -27,7 +27,10 @@ class PositionController extends Controller
         }
 
         // Get positions
-        $positions = Position::all();
+        if(Auth::user()->role == role('super-admin'))
+            $positions = Position::has('group')->get();
+        elseif(Auth::user()->role == role('admin'))
+            $positions = Position::has('group')->where('group_id','=',Auth::user()->group_id)->get();
 
         // View
         return view('admin/position/index', [

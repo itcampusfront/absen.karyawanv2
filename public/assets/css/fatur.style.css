@@ -1,0 +1,87 @@
+body {
+    font-family: Lato, "sans-serif";
+}
+
+.navbar-vertical {
+    background-color: #fff;
+    border-right: 1px solid #fff;
+}
+
+.navbar-vertical .navbar-brand {
+    text-align: center;
+    padding: 1rem;
+}
+
+.navbar-vertical hr {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.navbar-vertical .navbar-brand img {
+    height: auto;
+}
+
+.navbar-vertical .navbar-heading {
+    color: #a4a4a4;
+    padding: .5rem 1.5rem;
+}
+
+.navbar-vertical .navbar-nav .nav-item .nav-link, 
+.navbar-vertical .navbar-nav .nav-item .nav-link .nav-icon {
+    color: var(--bs-dark);
+}
+
+.navbar-vertical .navbar-nav .nav-item .nav-link.active,
+.navbar-vertical .navbar-nav .nav-item .nav-link.active .nav-icon,
+.navbar-vertical .navbar-nav .nav-item .nav-link:hover,
+.navbar-vertical .navbar-nav .nav-item .nav-link:hover .nav-icon,
+.navbar-vertical .navbar-nav .nav .nav-item .nav-link.active, .navbar-vertical .navbar-nav .nav .nav-item .nav-link:hover {
+    color: var(--bs-primary);
+}
+
+.navbar-vertical .navbar-nav .nav-item .nav-link[data-bs-toggle=collapse]:after {
+    filter: none;
+}
+
+.navbar-vertical .navbar-nav .nav .nav-item .nav-link {
+    color: #898989;
+}
+
+.card .card-toolbar-header {
+    padding: 1rem;
+}
+
+.card .card-body {
+    padding: 1rem;
+}
+
+@media(max-width: 767px) {
+    .card .card-toolbar-header {
+        text-align: center;
+    }
+
+    .card .card-toolbar-header .btn-group {
+        margin-bottom: 1rem;
+    }
+}
+
+@media(min-width: 768px) {
+    .card .card-toolbar-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .card .card-toolbar-header .btn-group {
+        margin-bottom: 0;
+    }
+}
+
+#datatable tr th {
+    text-align: center;
+    font-size: 100%;
+}
+
+#datatable tr td.td-checkbox,
+#datatable tr td.td-options {
+    text-align: center;
+}

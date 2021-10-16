@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Attendance;
 use App\Models\Role;
 use App\Models\Setting;
 
@@ -38,5 +41,16 @@ if(!function_exists('time_to_string')) {
 			return floor($time / 60)." menit ".fmod($time, 60)." detik";
 		else
 			return floor($time / 3600)." jam ".(floor($time / 60) - (floor($time / 3600) * 60))." menit ".fmod($time, 60)." detik";
+    }
+}
+
+// Check attendance
+if(!function_exists('attendance')) {
+    function attendance($work_hour) {
+        $group = Auth::user()->group_id;
+        $attendances = Attendance::where('office_id','=',Auth::user()->office_id)->where('workhour_id','=',$work_hour)->where('date','=',date('Y-m-d'))->where('exit_at','=',null)->whereHas('workhour', function (Builder $query) use ($group) {
+            return $query->where('group_id','=',$group)->where('category','=',2);
+        })->count();
+        return $attendances;
     }
 }

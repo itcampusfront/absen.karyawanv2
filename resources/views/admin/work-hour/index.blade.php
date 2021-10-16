@@ -39,6 +39,7 @@
                                     <th>Jam Kerja</th>
                                     <th>Grup</th>
                                     <th width="80">Kategori</th>
+                                    <th width="60">Kuota</th>
                                     <th width="40">Opsi</th>
                                 </tr>
                             </thead>
@@ -57,6 +58,7 @@
                                                 -
                                             @endif
                                         <td>{{ $work_hour->category == 1 ? 'Full-Time' : 'Part-Time' }}</td>
+                                        <td>{{ $work_hour->quota }}</td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{{ $work_hour->name != 'Head work_hour' ? route('admin.work-hour.edit', ['id' => $work_hour->id]) : '#' }}" class="btn btn-warning btn-sm" style="{{ $work_hour->name != 'Head work_hour' ? '' : 'cursor: not-allowed' }}" title="{{ $work_hour->name != 'Head work_hour' ? 'Edit' : 'Tidak diizinikan mengedit data ini' }}"><i class="fa fa-edit"></i></a>

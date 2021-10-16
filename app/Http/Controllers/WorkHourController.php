@@ -60,6 +60,7 @@ class WorkHourController extends Controller
             'name' => 'required|max:255',
             'group_id' => Auth::user()->role == role('super-admin') ? 'required' : '',
             'category' => 'required',
+            'quota' => 'required|numeric',
             'start_at' => 'required',
             'end_at' => 'required',
         ]);
@@ -75,6 +76,7 @@ class WorkHourController extends Controller
             $work_hour->group_id = Auth::user()->role == role('super-admin') ? $request->group_id : Auth::user()->group_id;
             $work_hour->name = $request->name;
             $work_hour->category = $request->category;
+            $work_hour->quota = $request->quota;
             $work_hour->start_at = $request->start_at.':00';
             $work_hour->end_at = $request->end_at.':00';
             $work_hour->save();
@@ -118,6 +120,7 @@ class WorkHourController extends Controller
             'name' => 'required|max:255',
             'group_id' => Auth::user()->role == role('super-admin') ? 'required' : '',
             'category' => 'required',
+            'quota' => 'required|numeric',
             'start_at' => 'required',
             'end_at' => 'required',
         ]);
@@ -133,6 +136,7 @@ class WorkHourController extends Controller
             $work_hour->group_id = Auth::user()->role == role('super-admin') ? $request->group_id : Auth::user()->group_id;
             $work_hour->name = $request->name;
             $work_hour->category = $request->category;
+            $work_hour->quota = $request->quota;
             $work_hour->start_at = $request->start_at.':00';
             $work_hour->end_at = $request->end_at.':00';
             $work_hour->save();

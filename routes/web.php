@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Admin
 Route::group(['middleware' => ['admin']], function(){
     // Logout
-	Route::post('/admin/logout', 'LoginController@logout')->name('auth.logout');
+	Route::post('/admin/logout', 'LoginController@logout')->name('admin.logout');
 
 	// Dashboard
 	Route::get('/admin', 'DashboardController@index')->name('admin.dashboard');
@@ -68,6 +68,19 @@ Route::group(['middleware' => ['admin']], function(){
 	Route::get('/admin/work-hour/edit/{id}', 'WorkHourController@edit')->name('admin.work-hour.edit');
 	Route::post('/admin/work-hour/update', 'WorkHourController@update')->name('admin.work-hour.update');
 	Route::post('/admin/work-hour/delete', 'WorkHourController@delete')->name('admin.work-hour.delete');
+});
+
+// Member
+Route::group(['middleware' => ['member']], function(){
+    // Logout
+	Route::post('/member/logout', 'LoginController@logout')->name('member.logout');
+
+	// Dashboard
+    Route::get('/member', 'DashboardController@index')->name('member.dashboard');
+
+	// Attendance
+	Route::post('/member/attendance/entry', 'AttendanceController@entry')->name('member.attendance.entry');
+	Route::post('/member/attendance/exit', 'AttendanceController@exit')->name('member.attendance.exit');
 });
 
 // Guest

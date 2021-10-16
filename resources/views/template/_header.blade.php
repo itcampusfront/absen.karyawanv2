@@ -14,8 +14,8 @@
 			<ul class="dropdown-menu settings-menu dropdown-menu-right">
 				<li><a class="dropdown-item" href="/admin/profil"><i class="fa fa-cog fa-lg"></i> Profil</a></li>
 				<li><a class="dropdown-item" href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('form-logout').submit();"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
-				<form id="form-logout" method="post" action="{{ route('auth.logout') }}">
-					{{ csrf_field() }}
+				<form id="form-logout" method="post" action="{{ route('admin.logout') }}">
+					@csrf
 				</form>
 			</ul>
 		</li>

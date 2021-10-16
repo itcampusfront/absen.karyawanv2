@@ -24,7 +24,7 @@ class WorkHour extends Model
      *
      * @throws \Illuminate\Database\Eloquent\MassAssignmentException
      */
-    protected $fillable = ['name', 'category', 'start_at', 'end_at'];
+    protected $fillable = ['name', 'category', 'quota', 'start_at', 'end_at'];
     
     /**
      * Get the group that owns the office.

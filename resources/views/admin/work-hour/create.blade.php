@@ -59,6 +59,13 @@
                                 <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('category')) }}</div>
                                 @endif
                             </div>
+                            <div class="form-group col-md-12">
+                                <label>Kuota <span class="text-danger">*</span></label>
+                                <input type="text" name="quota" class="form-control {{ $errors->has('quota') ? 'is-invalid' : '' }}" value="{{ old('quota') }}" placeholder="Masukkan Kuota">
+                                @if($errors->has('quota'))
+                                <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('quota')) }}</div>
+                                @endif
+                            </div>
                             <div class="form-group col-md-6">
                                 <label>Mulai <span class="text-danger">*</span></label>
                                 <input type="text" name="start_at" class="form-control clockpicker {{ $errors->has('start_at') ? 'is-invalid' : '' }}" value="{{ old('start_at') }}" placeholder="Masukkan Jam Mulai" autocomplete="off">

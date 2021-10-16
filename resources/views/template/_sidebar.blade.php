@@ -1,7 +1,6 @@
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
-	<div class="app-sidebar__user"><img class="app-sidebar__user-avatar mx-auto" height="100" src="{{ asset('assets/images/logo/'.setting('logo')) }}" alt="User Image"></div>
 	<ul class="app-menu">
 		<li><a class="app-menu__item {{ Request::url() == route('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
 		@if(Auth::user()->role == role('super-admin') || Auth::user()->role == role('admin'))

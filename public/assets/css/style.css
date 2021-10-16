@@ -26,7 +26,6 @@ a:hover {color: #3f598c;}
 .btn .icon, .btn .fa {margin-right: 0; width: 14px;}
 .app-header {background-color: #555!important;}
 .app-sidebar__user-avatar {border-radius: 0!important;}
-.app-menu {border-top: 1px solid #bbb;}
 .app-menu__submenu {margin-top: 2rem; padding: 8px 15px;}
 .app-menu__submenu .app-menu__label {color: #fff; font-size: 1rem; font-weight: bold; text-transform: uppercase;}
 .tab-content {border-top: 1px solid #5173b3;}

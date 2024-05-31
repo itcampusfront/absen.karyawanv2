@@ -38,9 +38,9 @@ if(!function_exists('time_to_string')) {
 		if($time < 60)
 			return $time." detik";
 		elseif($time >= 60 && $time < 3600)
-			return floor($time / 60)." menit ".fmod($time, 60)." detik";
+			return fmod($time, 60) > 0 ? floor($time / 60)." menit ".fmod($time, 60)." detik" : floor($time / 60)." menit";
 		else
-			return floor($time / 3600)." jam ".(floor($time / 60) - (floor($time / 3600) * 60))." menit ".fmod($time, 60)." detik";
+			return fmod($time, 60) > 0 ? floor($time / 3600)." jam ".(floor($time / 60) - (floor($time / 3600) * 60))." menit ".fmod($time, 60)." detik" : floor($time / 3600)." jam ".(floor($time / 60) - (floor($time / 3600) * 60))." menit";
     }
 }
 
@@ -49,8 +49,25 @@ if(!function_exists('attendance')) {
     function attendance($work_hour) {
         $group = Auth::user()->group_id;
         $attendances = Attendance::where('office_id','=',Auth::user()->office_id)->where('workhour_id','=',$work_hour)->where('date','=',date('Y-m-d'))->where('exit_at','=',null)->whereHas('workhour', function (Builder $query) use ($group) {
-            return $query->where('group_id','=',$group)->where('category','=',2);
+            return $query->where('group_id','=',$group);
         })->count();
         return $attendances;
+    }
+}
+
+// Filter string
+if(!function_exists('filter_string')) {
+    function filter_string($text, $strings) {
+        $result = $text;
+        if(is_array($strings)) {
+            foreach($strings as $string) {
+                $result = str_replace($string, '', $result);
+            }
+        }
+        elseif(is_string($strings)) {
+            $result = str_replace($strings, '', $result);
+        }
+
+        return $result;
     }
 }

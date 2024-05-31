@@ -19,12 +19,9 @@ class Group extends Model
     /**
      * Fill the model with an array of attributes.
      *
-     * @param  array  $attributes
-     * @return $this
-     *
-     * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+     * @param  array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'period_start', 'period_end'];
 
     /**
      * Get the users for the group.
@@ -48,5 +45,13 @@ class Group extends Model
     public function positions()
     {
         return $this->hasMany(\App\Models\Position::class);
+    }
+
+    /**
+     * Get the categories for the group.
+     */
+    public function categories()
+    {
+        return $this->hasMany(\App\Models\SalaryCategory::class);
     }
 }

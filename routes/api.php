@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
+Route::get('/user', 'UserController@index')->name('api.user.index');
 Route::get('/office', 'OfficeController@index')->name('api.office.index');
 Route::get('/position', 'PositionController@index')->name('api.position.index');
+Route::get('/work-hour', 'WorkHourController@index')->name('api.work-hour.index');
+Route::get('/salary-category', 'SalaryCategoryController@index')->name('api.salary-category.index');

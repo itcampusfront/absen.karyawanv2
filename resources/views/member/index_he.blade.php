@@ -39,11 +39,18 @@
     </nav>
 
     @if(Auth::user()->end_date == null)
-    <div class="container mt-5">
+    <div class="container mt-3">
         <!-- Welcome Text -->
         <div class="alert alert-info text-center" role="alert">
             Selamat datang <strong>{{ Auth::user()->name }}</strong> di E-Absensi. Anda login sebagai Member <strong>({{ Auth::user()->position ? Auth::user()->position->name : '-' }})</strong>.
         </div>
+        @if(Auth::user()->id == 133)
+            <div class="alert alert-danger text-center" role="alert">
+                Happy birthday <strong>Mbak Luluk</strong> Semoga apa yang sedang menjadi tujuan bisa segera terwujud...!!! <br>
+				<b><i>Barakallah fii umrik</i></b>. Sebagai reward, saya akan mengabulkan sebuah permintaan apapun (selama saya mampu)<br>
+				<span><b><i><small>"pesan ini hanya terlihat di login absensimu"</small></i></b></span>
+            </div>
+        @endif
 
         <!-- Digital Clock -->
         <div class="row">
@@ -98,6 +105,12 @@
                 @endif
             </div>
         </div>
+
+        @if(Auth::user()->id == 133)
+            <div class="card">
+                <img class="card-img-top" src="{{ asset('luluk.png') }}" alt="Card image cap">
+            </div>
+        @endif
     </div>
     @else
     <div class="container mt-5">

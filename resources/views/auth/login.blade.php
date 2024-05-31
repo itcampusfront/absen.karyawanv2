@@ -2,7 +2,7 @@
 <html>
     <head>
         @include('template/_head')
-        <title>Login | {{ setting('name') }}</title>
+        <title>Login | E-Absensi</title>
         <style>
             .btn .fa {margin-right: 0;}
         </style>
@@ -13,15 +13,18 @@
         </section>
         <section class="login-content">
             <div class="logo">
-                <img src="{{ asset('assets/images/logo/'.setting('logo')) }}" height="150">
+                <img src="https://campus.co.id/wp-content/uploads/2019/10/campus_light.png" height="75" style="filter: brightness(0) invert(1);">
             </div>
             <div class="login-box">
                 <form class="login-form" action="{{ route('auth.post-login') }}" method="post">
-                    {{ csrf_field() }}
+                    @csrf
                     <h3 class="login-head">Selamat Datang!</h3>
+                    @if($errors->has('message'))
+                    <div class="alert alert-danger text-center">{{ $errors->first('message') }}</div>
+                    @endif
                     <div class="form-group">
-                        <label class="control-label">EMAIL / USERNAME</label>
-                        <input class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" name="username" type="text" placeholder="Masukkan Email / Username" value="{{ old('username') }}" autofocus>
+                        <label class="control-label">USERNAME</label>
+                        <input class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" name="username" type="text" placeholder="Masukkan Username" value="{{ old('username') }}" autofocus>
                         @if($errors->has('username'))
                         <div class="form-control-feedback text-danger">{{ ucfirst($errors->first('username')) }}</div>
                         @endif

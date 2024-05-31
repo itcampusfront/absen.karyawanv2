@@ -19,11 +19,8 @@ class Role extends Model
     /**
      * Fill the model with an array of attributes.
      *
-     * @param  array  $attributes
-     * @return $this
-     *
-     * @throws \Illuminate\Database\Eloquent\MassAssignmentException
+     * @param  array
      */
-    protected $fillable = ['name', 'code'];
+    protected $fillable = ['name', 'code', 'num_order'];
 
 }
